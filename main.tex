@@ -3,12 +3,21 @@
 
 \documentclass{urban-formatting}
 
+% Font and Font Weight
+\usepackage[default]{lato}
+\usepackage[T1]{fontenc}
+
 \begin{document}
+% Setting the page numbering to be roman first
+\pagenumbering{roman}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{titlepage}
-    % Add logo
-    \begin{textblock*}{8.5in}(0in, 0.15in)
+    % Add Policy Center/Intaitive/Toxonmy Term Bar
+    % note the textbox exceeds width of document to avoid white space on sides
+    \begin{textblock*}{9in}(-0.25in, 0.125in)
         \begin{tcolorbox}[valign = center]
             \begin{center}
                 \policycenter{[Policy Center, Initiative, or Taxonomy Terms Here]}
@@ -17,13 +26,14 @@
     \end{textblock*}
 
     % Adding the cover image - code forces the image to be width of full paper (ignoring margins)
-    \vspace*{-1.5cm}
+    \vspace*{-1.75cm}
     \noindent
     \makebox[\textwidth]{\includegraphics{images/cover.jpg}}
     
     \vspace{0.3in}
-    \noindent\textcolor{urban-cyan}{\MakeUppercase{\textbf{Research Report}}}
+    \noindent\textcolor{urban-blue}{\MakeUppercase{\textbf{Research Report}}}
     
+    \vspace{0.3in}
     \titlereport{Title Here in Title Case}
     
     \reportsubtitle{Subtitle Here in Title Case}
@@ -52,8 +62,8 @@
     \vfill
     
     % Add logo
-    \begin{textblock*}{5in}[1, 1](6in, 10.5in)
-        \noindent\includegraphics[width=5in]{images/cover-footer.jpg}
+    \begin{textblock*}{4.5in}[1, 1](5.5in, 10.5in)
+        \noindent\includegraphics[width=4.5in]{images/cover-footer.jpg}
     \end{textblock*}
 \end{titlepage}
 
@@ -65,60 +75,109 @@
 \end{figure}
 \vspace*{-0.5in}
 \about{About the Urban Institute}\\
+\vspace{-5pt}
 \boilerplate{The nonprofit Urban Institute is a leading research organization dedicated to developing evidence-based insights that improve people’s lives and strengthen communities. For 50 years, Urban has been the trusted source for rigorous analysis of complex social and economic issues; strategic advice to policymakers, philanthropists, and practitioners; and new, promising ideas that expand opportunities for all. Our work inspires effective decisions that advance fairness and enhance the well-being of people and places.}
 
 \vspace*{\fill}
-\noindent Copyright ©\tbf{Month Year}. Urban Institute. Permission is granted for reproduction of this file, with attribution to the Urban Institute. Cover image by \tbf{Tim Meko}.
+\begin{singlespace}
+    \noindent Copyright ©\tbf{Month Year}. Urban Institute. Permission is granted for reproduction of this file, with attribution to the Urban Institute. Cover image by \tbf{Tim Meko}.
+\end{singlespace}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Contents %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
-\tableofcontents
+\cleardoublepage
+% Set page number to include title page
+\setcounter{page}{3}
+\begin{singlespace}
+    \tableofcontents
+\end{singlespace}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Acknowledgments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
-\part*{Acknowledgments}
 
-This report was funded by \tbf{[insert your funder name(s) here].} We are grateful to them and to all our funders, who make it possible for Urban to advance its mission. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Front Matter %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\include{frontmatter/acknowledgements}
 
-The views expressed are those of the \tbf{author/authors} and should not be attributed to the Urban Institute, its trustees, or its funders. Funders do not determine research findings or the insights and recommendations of Urban experts. Further information on the Urban Institute’s funding principles is available at urban.org/fundingprinciples.
+\include{frontmatter/executive}
 
-\tbf{[Add any other thanks and contract details here. It may be appropriate to also acknowledge your funder’s funder(s). When in doubt, please check with your center director and Contracts.]}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Main Text %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Setting the page numbers to be arabic
+\pagenumbering{arabic}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Executive %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
-\part*{Executive Summary}
+\part{Report Title Here in Title Case (Heading 1 style)}
 
-\intropara{Body Text style or Chapter Intro Para style here (text shown is in Chapter Intro Para). If you do not have an executive summary, remove this section.}
+Body Text style for first paragraph.
 
-\section*{First-Level Heading in Title Case (Heading 2 style)}
+Body Text First Indent style for subsequent paragraphs. \textcolor{red}{To add an endnote, use the Insert Endnote function. Endnotes will automatically appear in the Notes section after the appendixes.}\endnote{Endnotes inserted in the executive summary, main report, and appendixes will all display here if section breaks are used correctly.} 
 
-Body Text style for first paragraph under a heading.
-
-Body Text First Indent style for all subsequent paragraphs. \tbf{To add an endnote, use the Insert Endnote function. Endnotes will automatically appear in the Notes section after the appendixes.}
-
-\subsection*{Second-Level Heading in Title Case (Heading 3 style)}
+\section{First-Level Heading in Title Case (Heading 2 style)}
 
 Body Text style for first paragraph under a heading.
 
 Body Text First Indent style for all subsequent paragraphs.
+\begin{itemize}
+    \item Bulleted List style for bulleted lists.
+    \item Another bullet using Bulleted List style.
+    \begin{itemize}
+        \item Bulleted List 2 style for second-level bulleted items under a numbered or bulleted list item.
+        \item Another item using Bulleted List 2 style.
+    \end{itemize}
+    \item Another bullet using Bulleted List style.\\
+    Indented Text style for ordinary paragraphs under a numbered or bulleted list item.
+\end{itemize}
 
+\noindent Body Text First Indent style for all subsequent paragraphs.
 
-\subsubsection*{THIRD-LEVEL HEADING; ALL CAPS IS BUILT INTO STYLE (HEADING 4 STYLE)}
+\begin{enumerate}
+    \item Numbered List style for numbered lists
+    \begin{enumerate}
+        \item Numbered List 2 style for second-level lettered items under a numbered or bulleted list item.
+        \item Another paragraph using Numbered List 2 style.
+    \end{enumerate}
+    \item Another item using Numbered List style.\\
+    Indented Text style for ordinary paragraphs under a numbered or bulleted list item.
+\end{enumerate}
+
+\noindent Body Text First Indent style for all subsequent paragraphs.
+
+\subsection{Second-Level Heading in Title Case (Heading 3 style)}
+
+\indent Body Text style for first paragraph under a heading.
+
+\subsubsection{Third-level heading; all caps is built into style (heading 4 style)}
 
 Body Text style for first paragraph under a heading.
 
+\fourthsub{Fourth-level headings are run into the text.} Select the first clause or sentence of your paragraph, then apply the Heading 5 (D) style. 
+
+Pull Quote style for pull quotes.
+
+---Pull quote attribution in sentence case
+
 Body Text First Indent style for all subsequent paragraphs.
 
+\block{Block Text style for longer (100+ words) quotes and excerpts.}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% About Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
-\part*{About the Authors}
-\textbf{Author Name in Bold} but the rest of the text lightface. Use Author Bios--First style for the introductory paragraph of each bio. You can paste your bio from your author page on the Urban website (and condense it if needed) here. 
+\part{Reference Styles for Urban Products}
 
-If your bio is more than one paragraph long, use Author Bios--Additional for any subsequent paragraphs. This style suppresses spacing between paragraphs.
+\section{Blog posts (cite in notes, not reference list)}
 
-Author bios no longer include photos.
+\section{Policy debates (cite in notes, not reference list)}
 
+\subsection{The entire debate:}
+
+\subsection{One post in the debate:}
+
+\cite{Ful83}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Back Matter %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\include{backmatter/appendix}
+
+\include{backmatter/notes}
+
+\include{backmatter/references}
+
+\include{backmatter/author}
+
+\include{backmatter/independence}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Back Cover %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage

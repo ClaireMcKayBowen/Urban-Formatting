@@ -25,45 +25,54 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{urban-formatting}
 \LoadClass{article} 
-\usepackage[top=1.13in, left = 1.13in, bottom = 1.2in, right = 1.13in, paperheight = 11in, paperwidth = 8.5in]{geometry}
+\usepackage[top = 1.13in, left = 1.13in, bottom = 1.2in, right = 1.13in, paperheight = 11in, paperwidth = 8.5in]{geometry}
 
 % Packages -----------------------------------
 \RequirePackage{% Default
     color, % Color text
+    endnotes, % Footnote Formatting
+    enumitem, % Itemize Formatting
     graphicx, % Figure package
-    lato, % Lato Font Family
     multicol, % Create Multi-columns
+    natbib, % Bibliography
     pdfpages, % Insert pdfs
+    scrextend, % Adding margin
+    setspace, % Line Spacing
     titlesec, % Change Formatting
+    titletoc, % For ToC Formatting
     xcolor % Defining new colors
 }
 
-% Absolute positioning of images (e.g., title page footer image)
-\RequirePackage[absolute]{textpos}
 % Color Box for footers, headers, etc.
 \RequirePackage[most]{tcolorbox}
+% Absolute positioning of images (e.g., title page footer image)
+\RequirePackage[absolute]{textpos}
 
 % Urban Colors -----------------------------------
 \definecolor{urban-cyan}{HTML}{00aeef}
+\definecolor{urban-blue}{HTML}{1696d2}
 \definecolor{urban-gray}{HTML}{9d9fa2}
 \definecolor{urban-darkgray}{HTML}{5c5859}
 \definecolor{urban-lightgray}{HTML}{d9d9d9}
 
 % General Formatting -----------------------------------
-\renewcommand{\baselinestretch}{1} % Single spacing
+\renewcommand{\baselinestretch}{1.5} % Single spacing
 \raggedright % Left justified
 \setlength{\parindent}{0.25in} % Paragraph indents
 \setlength{\parskip}{9pt} % Paragraph spacing
+\setcounter{tocdepth}{2} % TOC listing depth
+\setcounter{secnumdepth}{-1} % Suppressing numbering on sections
+\let\footnote=\endnote % Moving where footnotes are
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Special Styling %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Header/Footer %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Urban Gray Bar
 \tcbset{
     frame code = {}
     center title,
     left = 0pt,
     right = 0pt,
-    top = 7.5pt,
-    bottom = 7.5pt,
+    top = 5pt,
+    bottom = 5pt,
     colback = urban-lightgray,
     colframe = white,
     width=\dimexpr\textwidth\relax,
@@ -72,47 +81,116 @@
     arc=0pt,outer arc=0pt,
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TOC %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TOC Formatting
+\patchcmd{\tableofcontents}{\contentsname}{\color{urban-blue}\fontsize{28}{36}\selectfont\contentsname}{}{}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Bullets %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Spacing between bullet and text
+\setlist[itemize, 1]{leftmargin = 0.5in, labelsep = 4.5mm}
+\setlist[enumerate, 1]{leftmargin = 0.5in, labelsep = 3mm}
+
+\setlist[enumerate, 2]{label=\alph*.}
+
+% Blue Square Bullet
+\newcommand{\squarebullet}{\textcolor{urban-blue}{\raisebox{.5ex}{\rule{0.7ex}{0.7ex}}}}
+\renewcommand{\labelitemi}{\squarebullet}
+
+% Double arrow bullet
+\newcommand{\doublearrow}{\fontseries{mb}\selectfont >>}
+\renewcommand{\labelitemii}{\doublearrow}
+
+% Spacing between items
+\setlist{nosep}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Quote %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\quoteblock}[1]{
+    \begin{addmargin}[0.5in]{0in}
+        #1
+    \end{addmargin}
+}
+
+% Block Text Style Formatting
+\newcommand{\block}[1]{%
+    {%
+        \begin{addmargin*}[0.5in]{0pt}
+            \fontsize{9}{0}%
+            \selectfont%
+            \noindent%
+            #1%
+        \end{addmargin*}
+    }%
+}%
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Fonts %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \renewcommand{\familydefault}{\sfdefault} % Family Font as Lato
+% https://tug.org/FontCatalogue/lato/
 
 % To be filled
 \newcommand{\tbf}{\textcolor{red}}%
 
 % Defining set fonts
-\def\normalsize{\fontsize{10}{18}}%
+\def\normalsize{\fontsize{10}{12}}% 18 to 12 (divide by 1.5 spacing)
+\def\enotesize{\fontsize{9}{9}}
 
 % Part Formatting
-\titleformat{\part}[display]{\color{urban-cyan}}{\thepart}{}{\fontsize{28}{36}\selectfont}%
+\titleformat{\part}[display]{\color{urban-blue}}{\thepart}{}{\fontsize{28}{21}\selectfont}% 32 to 21 (divide by 1.5 spacing)
 \titlespacing*{\part}{0pt}{0pt}{0pt}%
+
 % Section Formatting
-\titleformat{\section}[display]{}{}{}{\fontsize{18}{24}\selectfont}%
-\titlespacing*{\section}{0pt}{32pt}{6pt}%
+\titleformat{\section}[display]{}{}{}{\fontsize{18}{16}\selectfont}% 24 to 16 (divide by 1.5 spacing)
+\titlespacing*{\section}{0pt}{21pt}{4pt}% 32 to 21, 6 to 4 (divide by 1.5 spacing)
+
 % Subsection Formatting
 \titleformat{\subsection}[display]{\bfseries}{}{}{\fontsize{12}{18}\selectfont}%
-\titlespacing*{\subsection}{0pt}{28pt}{6pt}%
+\titlespacing*{\subsection}{0pt}{12pt}{4pt}% 18 to 12, 6 to 4 (divide by 1.5 spacing)
+
 % Subsubsection Formatting
-\titleformat{\subsubsection}[display]{\bfseries\color{urban-gray}}{}{0em}{\fontsize{10}{18}\selectfont}%
-\titlespacing*{\subsubsection}{0pt}{18pt}{0pt}%
+\titleformat{\subsubsection}[display]{\bfseries\color{urban-gray}}{}{0em}{\fontsize{10}{12}\selectfont\MakeUppercase}% 18 to 12, 6 to 4 (divide by 1.5 spacing)
+\titlespacing*{\subsubsection}{0pt}{8pt}{0pt}% 12 to 8 (divide by 1.5 spacing)
+
+% fourthsub Formatting
+\newcommand\fourthsub[1]{%
+    {%
+        \fontsize{10}{0}%
+        \selectfont%
+        \fontseries{b}%
+        \selectfont%
+        \textit{#1}%
+    }%
+}%
 
 % Policy Center Formatting
 \newcommand\policycenter[1]{%
-    \fontsize{8}{0}%
-    \selectfont%
-    \noindent\textcolor{urban-darkgray}{\MakeUppercase{#1}}%
+    {%
+        \fontsize{8}{0}%
+        \selectfont%
+        \fontseries{eb}%
+        \selectfont%
+        \noindent%
+        \textcolor{urban-darkgray}{\MakeUppercase{#1}}%
+    }%
 }%
 
 % Title Report Formatting
 \newcommand\titlereport[1]{%
-    \fontsize{30}{38}%
-    \selectfont%
-    \noindent#1
+    {%
+        \fontsize{30}{38}%
+        \fontseries{l}%
+        \selectfont%
+        \noindent#1%
+    }%
 }%
 
 % Report Subtitle Formatting
 \newcommand\reportsubtitle[1]{%
-    \fontsize{14}{18}%
-    \selectfont%
-    \noindent\textcolor{urban-cyan}{\textbf{#1}}%
+    {%
+        \fontsize{14}{18}%
+        \fontseries{b}%
+        \selectfont%
+        \noindent
+        \textcolor{urban-blue}{#1}%
+    }%
 }%
 
 % Author Name Formatting
@@ -138,22 +216,47 @@
 
 % About Urban Formatting
 \newcommand\about[1]{%
-    \fontsize{10}{18}%
-    \selectfont%
-    \noindent\textcolor{urban-cyan}{\MakeUppercase{\textbf{#1}}}%
+    {%
+        \fontsize{10}{18}%
+        \fontseries{b}%
+        \selectfont%
+        \noindent
+        \textcolor{urban-blue}{\MakeUppercase{#1}}%
+    }%
 }%
 
 % Boiler Plate Formatting
 \newcommand*{\boilerplate}[1]{%
-    {\fontsize{9}{12}%
-    \selectfont%
-    \noindent#1}%
+    \begin{singlespace}
+        {\fontsize{9}{12}%
+        \selectfont%
+        \noindent#1}%
+    \end{singlespace}
 }%
 
 % Chapter Intro Para Formatting
 \newcommand{\intropara}[1]{%
-    {\fontsize{11.5}{19}%
-    \selectfont%
-    \noindent%
-    \textbf{#1}}%
+    {%
+        \fontsize{11.5}{0}%
+        \selectfont%
+        \noindent%
+        \textbf{#1}%
+    }%
 }%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Notes and References %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Notes Title Formatting
+\renewcommand\notesname{\color{urban-blue}\fontsize{28}{12}\selectfont Notes}
+
+% Endnote font size
+\renewcommand\enotesize{\fontsize{9}{9}\selectfont}
+
+% Mark with no indent and hanging indent
+\renewcommand\enoteformat{%
+   \noindent\theenmark\hspace{0.1in}\ \hangindent 0.85\parindent%
+}
+
+% Reference Title Formatting
+\renewcommand\refname{\color{urban-blue}\fontsize{28}{18}\selectfont References}
+% Hanging indent
+\setlength{\bibhang}{0.15in}
