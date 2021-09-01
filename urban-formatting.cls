@@ -21,10 +21,10 @@
 % \newcommand{<name>}[<args>]{ <code> }
 % \fontsize{10}{12}\selectfont (the first number is the pt size of the font, the second number the space in pts between lines: this becomes the value of \baselineskip
 
-%%%%%%%%%%%%%%%%%% Meta Data and Defaults %%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Meta Data and Defaults %%%%%%%%%%%%%%%%%%%%%%%%
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{urban-formatting}
-\LoadClass{article} 
+\LoadClass[twoside]{article} 
 \usepackage[top = 1.13in, left = 1.13in, bottom = 1.2in, right = 1.13in, paperheight = 11in, paperwidth = 8.5in]{geometry}
 
 % Packages -----------------------------------
@@ -32,6 +32,7 @@
     color, % Color text
     endnotes, % Footnote Formatting
     enumitem, % Itemize Formatting
+    fancyhdr, % Header/Footer Formatting
     graphicx, % Figure package
     multicol, % Create Multi-columns
     natbib, % Bibliography
@@ -39,7 +40,7 @@
     scrextend, % Adding margin
     setspace, % Line Spacing
     titlesec, % Change Formatting
-    titletoc, % For ToC Formatting
+    tocloft, % For ToC Formatting
     xcolor % Defining new colors
 }
 
@@ -51,8 +52,10 @@
 % Urban Colors -----------------------------------
 \definecolor{urban-cyan}{HTML}{00aeef}
 \definecolor{urban-blue}{HTML}{1696d2}
+\definecolor{urban-gold}{HTML}{ffb918}
 \definecolor{urban-gray}{HTML}{9d9fa2}
 \definecolor{urban-darkgray}{HTML}{5c5859}
+\definecolor{urban-footergray}{HTML}{c6c6c6}
 \definecolor{urban-lightgray}{HTML}{d9d9d9}
 
 % General Formatting -----------------------------------
@@ -62,9 +65,10 @@
 \setlength{\parskip}{9pt} % Paragraph spacing
 \setcounter{tocdepth}{2} % TOC listing depth
 \setcounter{secnumdepth}{-1} % Suppressing numbering on sections
-\let\footnote=\endnote % Moving where footnotes are
+\let\footnote=\endnote % Changing footnotes to endnotes
+\setlength{\unitlength}{1in} 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Header/Footer %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Header/Footer %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Urban Gray Bar
 \tcbset{
     frame code = {}
@@ -80,12 +84,41 @@
     boxsep = 5pt,
     arc=0pt,outer arc=0pt,
 }
+\pagestyle{fancy}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TOC %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% TOC Formatting
-\patchcmd{\tableofcontents}{\contentsname}{\color{urban-blue}\fontsize{28}{36}\selectfont\contentsname}{}{}%
+% Clear the header and remove horizontal line
+\fancyhead{}
+\renewcommand{\headrulewidth}{0pt}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Bullets %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Clear Footer
+\fancyfoot{}
+
+\fancyfoot[LE]{\colorbox{urban-footergray}{\makebox(0.2, 0.12)[r]{\fontsize{7.5}{0}\selectfont\bfseries{\MakeUppercase{}\hspace{0.2in}}}}\colorbox{urban-gold}{\makebox(0.2, 0.12)[c]{\fontsize{7.5}{0}\selectfont\bfseries{\MakeUppercase\thepage}}}\colorbox{urban-footergray}{\makebox(5.64, 0.12)[r]{\fontsize{7.5}{0}\selectfont\bfseries{\MakeUppercase{TEXT TEXT}\hspace{0.2in}}}}}
+
+\fancyfoot[RO]{\colorbox{urban-footergray}{\makebox(5.64, 0.12)[l]{\fontsize{7.5}{0}\selectfont\bfseries{\hspace{0.2in}\MakeUppercase{TEXT TEXT}}}}\colorbox{urban-gold}{\makebox(0.2, 0.12)[c]{\fontsize{7.5}{0}\selectfont\bfseries{\MakeUppercase\thepage}}}\colorbox{urban-footergray}{\makebox(0.2, 0.12)[r]{\fontsize{7.5}{0}\selectfont\bfseries{\MakeUppercase{}\hspace{0.2in}}}}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TOC %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Title Formatting
+\renewcommand{\cfttoctitlefont}{\color{urban-blue}\fontsize{28}{0}\selectfont}
+
+% Font Style
+\renewcommand{\cftsecfont}{\fontsize{11}{0}\selectfont}
+\renewcommand{\cftsubsecfont}{\fontsize{10}{0}\selectfont}
+\renewcommand{\cftsecpagefont}{\normalfont}
+\renewcommand{\cftdot}{}
+
+% Indents
+\cftsetindents{section}{0.2in}{0.5in}
+\cftsetindents{subsection}{0.4in}{0.5in}
+
+% Spacing
+\setlength{\cftbeforeloftitleskip}{0in}
+\setlength{\cftbeforepartskip}{16pt}
+\setlength{\cftbeforesecskip}{8pt}
+\setlength{\cftbeforesubsecskip}{8pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Bullets %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Spacing between bullet and text
 \setlist[itemize, 1]{leftmargin = 0.5in, labelsep = 4.5mm}
 \setlist[enumerate, 1]{leftmargin = 0.5in, labelsep = 3mm}
@@ -103,7 +136,7 @@
 % Spacing between items
 \setlist{nosep}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Quote %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Quote %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\quoteblock}[1]{
     \begin{addmargin}[0.5in]{0in}
         #1
@@ -122,7 +155,7 @@
     }%
 }%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Fonts %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Fonts %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \renewcommand{\familydefault}{\sfdefault} % Family Font as Lato
 % https://tug.org/FontCatalogue/lato/
 
@@ -135,7 +168,7 @@
 
 % Part Formatting
 \titleformat{\part}[display]{\color{urban-blue}}{\thepart}{}{\fontsize{28}{21}\selectfont}% 32 to 21 (divide by 1.5 spacing)
-\titlespacing*{\part}{0pt}{0pt}{0pt}%
+\titlespacing*{\part}{0pt}{-28pt}{0pt}%
 
 % Section Formatting
 \titleformat{\section}[display]{}{}{}{\fontsize{18}{16}\selectfont}% 24 to 16 (divide by 1.5 spacing)
@@ -202,14 +235,14 @@
 
 % Author Affiliation Formatting
 \newcommand\affiliationfont[1]{%
-    \fontsize{7.5}{10}%
+    \fontsize{7.5}{7.5}%
     \selectfont%
     \noindent\MakeUppercase{#1}%
 }%
 
 % Date Formatting
 \newcommand\datefont[1]{%
-    \fontsize{11.5}{11}%
+    \fontsize{11.5}{7}%
     \selectfont%
     \noindent\textcolor{urban-darkgray}{\textit{#1}}%
 }%
@@ -244,7 +277,7 @@
     }%
 }%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Notes and References %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Notes and References %%%%%%%%%%%%%%%%%%%%%%%%%%
 % Notes Title Formatting
 \renewcommand\notesname{\color{urban-blue}\fontsize{28}{12}\selectfont Notes}
 
