@@ -39,6 +39,7 @@
     pdfpages, % Insert pdfs
     scrextend, % Adding margin
     setspace, % Line Spacing
+    soul, % Letter Spacing
     titlesec, % Change Formatting
     tocloft, % For ToC Formatting
     xcolor % Defining new colors
@@ -89,14 +90,6 @@
 % Clear the header and remove horizontal line
 \fancyhead{}
 \renewcommand{\headrulewidth}{0pt}
-
-% Clear Footer
-\fancyfoot{}
-
-\fancyfoot[LE]{\colorbox{urban-footergray}{\makebox(0.2, 0.12)[r]{\fontsize{7.5}{0}\selectfont\bfseries{\MakeUppercase{}\hspace{0.2in}}}}\colorbox{urban-gold}{\makebox(0.2, 0.12)[c]{\fontsize{7.5}{0}\selectfont\bfseries{\MakeUppercase\thepage}}}\colorbox{urban-footergray}{\makebox(5.64, 0.12)[r]{\fontsize{7.5}{0}\selectfont\bfseries{\MakeUppercase{TEXT TEXT}\hspace{0.2in}}}}}
-
-\fancyfoot[RO]{\colorbox{urban-footergray}{\makebox(5.64, 0.12)[l]{\fontsize{7.5}{0}\selectfont\bfseries{\hspace{0.2in}\MakeUppercase{TEXT TEXT}}}}\colorbox{urban-gold}{\makebox(0.2, 0.12)[c]{\fontsize{7.5}{0}\selectfont\bfseries{\MakeUppercase\thepage}}}\colorbox{urban-footergray}{\makebox(0.2, 0.12)[r]{\fontsize{7.5}{0}\selectfont\bfseries{\MakeUppercase{}\hspace{0.2in}}}}}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TOC %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Title Formatting
@@ -159,6 +152,9 @@
 \renewcommand{\familydefault}{\sfdefault} % Family Font as Lato
 % https://tug.org/FontCatalogue/lato/
 
+% Title Call
+\def\title#1{\gdef\@title{#1}\gdef\THETITLE{#1}}
+
 % To be filled
 \newcommand{\tbf}{\textcolor{red}}%
 
@@ -201,7 +197,7 @@
         \fontseries{eb}%
         \selectfont%
         \noindent%
-        \textcolor{urban-darkgray}{\MakeUppercase{#1}}%
+        \textcolor{urban-darkgray}{\MakeUppercase{\so{#1}}}%
     }%
 }%
 
@@ -237,7 +233,8 @@
 \newcommand\affiliationfont[1]{%
     \fontsize{7.5}{7.5}%
     \selectfont%
-    \noindent\MakeUppercase{#1}%
+    \noindent%
+    \MakeUppercase{\so{#1}}%
 }%
 
 % Date Formatting
@@ -254,7 +251,7 @@
         \fontseries{b}%
         \selectfont%
         \noindent
-        \textcolor{urban-blue}{\MakeUppercase{#1}}%
+        \textcolor{urban-blue}{\MakeUppercase{\so{#1}}}%
     }%
 }%
 
