@@ -11,6 +11,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Report %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% Report headers examples -----------------------------------
 \part{Report Title Here in Title Case (Heading 1 style)}
 
 Body Text style for first paragraph.
@@ -22,6 +23,7 @@ Body Text First Indent style for subsequent paragraphs. \textcolor{red}{To add a
 Body Text style for first paragraph under a heading.
 
 Body Text First Indent style for all subsequent paragraphs.
+% Bullet examples -----------------------------------
 \begin{itemize}
     \item Bulleted List style for bulleted lists.
     \item Another bullet using Bulleted List style.
@@ -57,6 +59,8 @@ Body Text style for first paragraph under a heading.
 
 \fourthsub{Fourth-level headings are run into the text.} Select the first clause or sentence of your paragraph, then apply the Heading 5 (D) style. 
 
+% Quote examples -----------------------------------
+% TODO: Still need to code quotes up
 Pull Quote style for pull quotes.
 
 ---Pull quote attribution in sentence case
@@ -65,8 +69,52 @@ Body Text First Indent style for all subsequent paragraphs.
 
 \block{Block Text style for longer (100+ words) quotes and excerpts.}
 
+% Figures and Tables examples -----------------------------------
 \newpage
+\part{Figures and Tables}
+
+\begin{figure}[htbp]
+    \caption{(Figure/Table Number Style)}
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/logo.png}
+    \label{fig:my_label}
+\end{figure}
+\begin{singlespace}
+    \source{\textbf{Source:} Figure/Table Notes style. Source in sentence case, except proper nouns. Change ``Source:'' to bold.}\\
+    \source{\textbf{Notes:} Figure/Table Notes style. Notes in sentences (and sentence case). Change ``Notes:'' to bold.}
+\end{singlespace}
+
+% Tables get tricky in LaTeX, because you have to specify each row and column.
+% These two examples mirror the Urban Report Word Doc.
+% Some ways to make LaTeX table without much work:
+% 1. Use xtable in R to generate the LaTeX code for a table you generated in R.
+% 2. https://www.tablesgenerator.com/, a LaTeX table generator
+
+\begin{singlespace}
+    \begin{table}[htbp]
+        \def\arraystretch{1.2}
+        \caption{(Figure/Table Number Style)}
+        \label{tab:my_label}
+        \centering
+        \begin{tabular}{L{0.2\textwidth} C{0.2\textwidth} C{0.2\textwidth} C{0.2\textwidth} C{0.2\textwidth}}
+                & \multicolumn{2}{C{0.4\textwidth}}{\tabheader{Spanner Heading in Title Case (Table Column Heading Style)}} & \multicolumn{2}{C{0.4\textwidth}}{\tabheader{Spanner Heading in Title Case (Table Column Heading Style)}}\\
+            \hline
+                & \tabheader{Column labels in sentence case (Table Column Heading style)} & \tabheader{Column labels in sentence case (Table Column Heading style)} & \tabheader{Column labels in sentence case (Table Column Heading style)} &  \tabheader{Column labels in sentence case (Table Column Heading style)}\\
+            \hline
+                Table row heading in sentence case (Table Row Heading style) &  &  &  &  \\ 
+                Table subheading in sentence case (Table Row Subheading style) &  &  &  &  \\ 
+                Table row in sentence case (Table Row style) &  &  &  &  \\
+            \hline
+        \end{tabular}
+    \end{table}
+    \source{\textbf{Source:} Figure/Table Notes style. Source in sentence case, except proper nouns. Change ``Source:'' to bold.}
+    \source{\textbf{Notes:} Figure/Table Notes style. Notes in sentences (and sentence case). Change ``Notes:'' to bold.}
+\end{singlespace}
+
+% Reference examples -----------------------------------
+\cleardoublepage
 \part{Reference Styles}
+See them printed out in the References section.
 
 \section{Reference Styles for Urban Products}
 
@@ -76,6 +124,17 @@ Body Text First Indent style for all subsequent paragraphs.
 
 \textbf{The entire debate:}
 
-\textbf{One post in the debate:}
+\noindent\textbf{One post in the debate:}
 
-\cite{Ful83}
+\section{Books}
+
+\begin{itemize}
+    \item \textbf{Single Author Book:} \citet{schwabish2020elevate}
+    \item \textbf{Multiple Authors:} \citet{burman2020taxes}
+    \item \textbf{Editor(s) in place of author:}
+    \item \textbf{Chapter in an edited book:}
+    \item \textbf{Urban Institute Press book:} \citet{cordes2009nonprofits}
+    \item \textbf{One volume in multi-volume work:} \citet{bowen2021book}
+    \item \textbf{Numbered edition:}
+\end{itemize}
+

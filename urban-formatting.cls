@@ -29,17 +29,22 @@
 
 % Packages -----------------------------------
 \RequirePackage{% Default
+    array, % Table Column Width
+    caption, % Figure/Table Caption Formatting
     color, % Color text
+    csquotes, % Typesets quotes
     endnotes, % Footnote Formatting
     enumitem, % Itemize Formatting
     fancyhdr, % Header/Footer Formatting
     graphicx, % Figure package
     multicol, % Create Multi-columns
-    natbib, % Bibliography
+    multirow, % Create Multi-rows
     pdfpages, % Insert pdfs
     scrextend, % Adding margin
     setspace, % Line Spacing
     soul, % Letter Spacing
+    subcaption, % Figure/Table Subaption Formatting
+    tabularx, % Table Management
     titlesec, % Change Formatting
     tocloft, % For ToC Formatting
     xcolor % Defining new colors
@@ -49,6 +54,8 @@
 \RequirePackage[most]{tcolorbox}
 % Absolute positioning of images (e.g., title page footer image)
 \RequirePackage[absolute]{textpos}
+% Chicago Reference
+\RequirePackage[authordate, autocite = inline, backend = biber, isbn = false, natbib]{biblatex-chicago}
 
 % Urban Colors -----------------------------------
 \definecolor{urban-cyan}{HTML}{00aeef}
@@ -67,7 +74,10 @@
 \setcounter{tocdepth}{2} % TOC listing depth
 \setcounter{secnumdepth}{-1} % Suppressing numbering on sections
 \let\footnote=\endnote % Changing footnotes to endnotes
-\setlength{\unitlength}{1in} 
+\setlength{\unitlength}{1in} % Setting unit length for creating the footers
+% Fixing the hyphenation issues
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Header/Footer %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Urban Gray Bar
@@ -182,10 +192,9 @@
 \newcommand\fourthsub[1]{%
     {%
         \fontsize{10}{0}%
-        \selectfont%
         \fontseries{b}%
-        \selectfont%
         \textit{#1}%
+        \selectfont%
     }%
 }%
 
@@ -193,7 +202,6 @@
 \newcommand\policycenter[1]{%
     {%
         \fontsize{8}{0}%
-        \selectfont%
         \fontseries{eb}%
         \selectfont%
         \noindent%
@@ -226,7 +234,8 @@
 \newcommand\authorfont[1]{%
     \fontsize{11.5}{14}%
     \selectfont%
-    \noindent\textit{#1}%
+    \noindent%
+    \textit{#1}%
 }%
 
 % Author Affiliation Formatting
@@ -234,7 +243,7 @@
     \fontsize{7.5}{7.5}%
     \selectfont%
     \noindent%
-    \MakeUppercase{\so{#1}}%
+    \MakeUppercase{#1}%
 }%
 
 % Date Formatting
@@ -274,10 +283,38 @@
     }%
 }%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Notes and References %%%%%%%%%%%%%%%%%%%%%%%%%%
-% Notes Title Formatting
-\renewcommand\notesname{\color{urban-blue}\fontsize{28}{12}\selectfont Notes}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Figures and Tables %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% New commands to manually adjust table widths
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+% setting the column space to 0
+\setlength{\tabcolsep}{0pt}
+
+% Source/Notes Formatting
+\newcommand{\source}[1]{%
+    {%
+        \fontsize{8}{0}%
+        \selectfont%
+        \noindent%
+        #1%
+    }%
+}%
+
+% Heading Title
+\newcommand{\tabheader}[1]{%
+    {%
+        \fontsize{9.5}{0}%
+        \fontseries{b}%
+        \selectfont%
+        \noindent%
+        #1%
+    }%
+}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Notes and References %%%%%%%%%%%%%%%%%%%%%%%%%%
 % Endnote font size
 \renewcommand\enotesize{\fontsize{9}{9}\selectfont}
 
@@ -286,7 +323,8 @@
    \noindent\theenmark\hspace{0.1in}\ \hangindent 0.85\parindent%
 }
 
-% Reference Title Formatting
-\renewcommand\refname{\color{urban-blue}\fontsize{28}{18}\selectfont References}
+% Reference font formatting
+\renewcommand*{\bibfont}{\fontsize{9}{9}\selectfont}
+
 % Hanging indent
 \setlength{\bibhang}{0.15in}
