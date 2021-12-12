@@ -2,25 +2,18 @@
 %
 % Based on the Urban Institute's formatting standards for short reports.
 %
-% Future projects will include declaring options to create other Urban
-% styles such as long reports, briefs, and white paper.
-%
 % ==============================
 % Copyright 2021 Claire McKay Bowen, Ph.D.
-%
-% This work consists of the files:
-% INCLUDE FULL LIST ONCE MADE!
-%
 % ==============================
-
+%
 % Notes -----------------------------------
 % \newcommand defines a new command, and makes an error if it is already defined.
 % \renewcommand redefines a predefined command, and makes an error if it is not yet defined.
 % \providecommand defines a new command if it isn't already defined.
-
+%
 % \newcommand{<name>}[<args>]{ <code> }
 % \fontsize{10}{12}\selectfont (the first number is the pt size of the font, the second number the space in pts between lines: this becomes the value of \baselineskip
-
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Meta Data and Defaults %%%%%%%%%%%%%%%%%%%%%%%%
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{urban-formatting}
