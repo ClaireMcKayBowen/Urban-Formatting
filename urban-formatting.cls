@@ -74,7 +74,7 @@
 \definecolor{urban-lightgray}{HTML}{d9d9d9}
 
 % General Formatting -----------------------------------
-\renewcommand{\baselinestretch}{1.5} % Single spacing
+\renewcommand{\baselinestretch}{1.5} % 1.5 spacing
 \raggedright % Left justified
 \setlength{\parindent}{0.25in} % Paragraph indents
 \setlength{\parskip}{9pt} % Paragraph spacing
@@ -276,7 +276,7 @@
 \titleformat{\subsubsection}[display]{\bfseries\color{urban-gray}}{}{0em}{\fontsize{10}{12}\selectfont\MakeUppercase\raggedright}% 18 to 12, 6 to 4 (divide by 1.5 spacing)
 \titlespacing*{\subsubsection}{0pt}{8pt}{-8pt}% 12 to 8 (divide by 1.5 spacing), no spacing afterward
 
-% fourthsub Formatting  - H5
+% fourthsub Formatting - H5
 \newcommand\fourthsub[1]{%
     {%
         \fontsize{10}{0}%
